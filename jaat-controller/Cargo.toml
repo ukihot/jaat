@@ -1,0 +1,11 @@
+[package]
+name = "jaat-controller"
+description = "UI presentation"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+jaat-usecase ={ path ="../jaat-usecase"}
+dioxus = "0.4.0"
