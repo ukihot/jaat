@@ -6,66 +6,67 @@ use style::Style;
 /// I do not prefer the variable names "A team" and "B team".
 /// Here we deal with dogs and monkeys.
 pub fn Controller(cx: Scope) -> Element {
-    let dog_team_name: &UseState<String> = use_state(cx, || "".to_string());
-    let dog1 = use_state(cx, || "".to_string());
-    let mon_team_name: &UseState<String> = use_state(cx, || "".to_string());
+    // Initialization of logger
+    wasm_logger::init(wasm_logger::Config::default());
 
     cx.render(rsx!(
+        // Load style sheet
+        style { Style::RESET }
+        style { Style::TEXTFORM_STYLES }
+        style { Style::GRID_STYLES }
         style { Style::TOGGLE_STYLES }
+        style { Style::RADIO_STYLES }
+
         h1 { "Jaat!" }
-        form { onsubmit: move |event| { println!("Submitted! {event:?}") },
-            input { name: "name" }
-            input { name: "age" }
-            input { name: "date" }
-            input { r#type: "submit" }
-        }
-        input {
-            // we tell the component what to render
-            value: "{dog_team_name}",
-            // and what to do when the value changes
-            oninput: move |evt| dog_team_name.set(evt.value.clone())
-        }
+
+        // Master items
         div {
-            p { "Members of {dog_team_name}" }
-            input {
-                // we tell the component what to render
-                value: "{dog1}",
-                // and what to do when the value changes
-                oninput: move |evt| dog1.set(evt.value.clone())
+            // Since there is no need to manage the state of each and every word, use_state is not used.
+            form { class: "grid_container", onsubmit: move |evt| { log::info!("{:?}", evt) },
+                input { r#type: "text", class: "player_info", name: "uniform_number" }
+                input { r#type: "text", class: "player_info", name: "name" }
+                input { r#type: "text", class: "player_info", name: "gender" }
+                input { r#type: "text", class: "player_info", name: "height" }
+                input { r#type: "text", class: "player_info", name: "weight" }
+                input { r#type: "submit", value: "REGISTER" }
             }
-        }
-        input {
-            // we tell the component what to render
-            value: "{mon_team_name}",
-            // and what to do when the value changes
-            oninput: move |evt| mon_team_name.set(evt.value.clone())
-        }
-        fieldset {
-            legend { "FIRST ATTACK" }
-            div {
-                input { r#type: "radio", name: "f" }
-                label { "{dog_team_name}" }
+
+            // Which team won rock-scissors-paper
+            fieldset { class: "first_atack", onchange: move |evt| { log::info!("{:?}", evt) },
+                legend { "FIRST ATTACK?" }
+                div { class: "radio_area",
+                    input {
+                        id: "dog_first",
+                        r#type: "radio",
+                        name: "first_atack",
+                        value: "0",
+                        checked: ""
+                    }
+                    label { r#for: "dog_first", "dog_team_name" }
+                }
+                div { class: "radio_area",
+                    input { id: "mon_first", r#type: "radio", name: "first_atack", value: "1" }
+                    label { r#for: "mon_first", "mon_team_name" }
+                }
             }
-            div {
-                input { r#type: "radio", name: "f" }
-                label { "{mon_team_name}" }
-            }
+
+            // Record members belonging to
+            div {}
         }
-        p { class: "foo", "test" }
+
+        // Match Live Information
         div {
             label { class: "switch_label",
-                input { r#type: "checkbox", class: "switch_input" }
+                input {
+                    r#type: "checkbox",
+                    class: "switch_input",
+                    onchange: |evt| log::info!("{:?}", evt)
+                }
                 span { class: "switch_content" }
                 span { class: "switch_circle" }
             }
         }
     ))
-    // enter:チーム名
-    // enter:先行後攻
-    // enter:プレイヤー情報
-    // display:7×2のボタン群
-    // usecase:labelにplayerの名前を付与
-
     // display:ボタン群の上で攻め側のチームをパネルで表示
     // display:raiderとantiで色分け
     // display:raid側チームのボタンは一つのみクリック可
