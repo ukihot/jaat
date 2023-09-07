@@ -9,3 +9,4 @@ edition = "2021"
 [dependencies]
 jaat-usecase ={ path ="../jaat-usecase"}
 dioxus = "0.4.0"
+dioxus-free-icons = { version = "0.7.0", features = ["font-awesome-brands"] }

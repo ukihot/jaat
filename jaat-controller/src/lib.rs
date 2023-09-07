@@ -1,17 +1,64 @@
 #![allow(non_snake_case)]
+mod style;
 use dioxus::prelude::*;
+use style::Style;
 
+/// I do not prefer the variable names "A team" and "B team".
+/// Here we deal with dogs and monkeys.
 pub fn Controller(cx: Scope) -> Element {
-    let mut count_a: &UseState<i32> = use_state(cx, || 0);
-    let mut count_b: &UseState<i32> = use_state(cx, || 0);
+    let dog_team_name: &UseState<String> = use_state(cx, || "".to_string());
+    let dog1 = use_state(cx, || "".to_string());
+    let mon_team_name: &UseState<String> = use_state(cx, || "".to_string());
 
     cx.render(rsx!(
-        h1 { "Counter_a: {count_a}" }
-        button { onclick: move |_| count_a += 1, "a++" }
-        button { onclick: move |_| count_a -= 1, "a--" }
-        h1 { "Counter_b: {count_b}" }
-        button { onclick: move |_| count_b += 1, "b++" }
-        button { onclick: move |_| count_b -= 1, "b--" }
+        style { Style::TOGGLE_STYLES }
+        h1 { "Jaat!" }
+        form { onsubmit: move |event| { println!("Submitted! {event:?}") },
+            input { name: "name" }
+            input { name: "age" }
+            input { name: "date" }
+            input { r#type: "submit" }
+        }
+        input {
+            // we tell the component what to render
+            value: "{dog_team_name}",
+            // and what to do when the value changes
+            oninput: move |evt| dog_team_name.set(evt.value.clone())
+        }
+        div {
+            p { "Members of {dog_team_name}" }
+            input {
+                // we tell the component what to render
+                value: "{dog1}",
+                // and what to do when the value changes
+                oninput: move |evt| dog1.set(evt.value.clone())
+            }
+        }
+        input {
+            // we tell the component what to render
+            value: "{mon_team_name}",
+            // and what to do when the value changes
+            oninput: move |evt| mon_team_name.set(evt.value.clone())
+        }
+        fieldset {
+            legend { "FIRST ATTACK" }
+            div {
+                input { r#type: "radio", name: "f" }
+                label { "{dog_team_name}" }
+            }
+            div {
+                input { r#type: "radio", name: "f" }
+                label { "{mon_team_name}" }
+            }
+        }
+        p { class: "foo", "test" }
+        div {
+            label { class: "switch_label",
+                input { r#type: "checkbox", class: "switch_input" }
+                span { class: "switch_content" }
+                span { class: "switch_circle" }
+            }
+        }
     ))
     // enter:チーム名
     // enter:先行後攻
