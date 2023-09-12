@@ -1,7 +1,7 @@
-use std::time::Duration;
 use super::player::Player;
 use crate::values::raid_scenario::RaidScenario;
 use garde::Validate;
+use std::time::Duration;
 
 #[derive(Debug, Validate)]
 pub struct Raid<'a> {
