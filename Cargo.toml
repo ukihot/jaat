@@ -11,4 +11,4 @@ dioxus-web = "0.4.0"
 jaat-controller = {path = "./jaat-controller/"}
 
 [workspace]
-members = [".", "./jaat-core/","./jaat-usecase/","./jaat-controller/"]
+members = [".", "./jaat-core/","./jaat-usecase/","./jaat-controller/","./jaat-data/"]

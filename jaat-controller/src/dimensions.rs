@@ -1,9 +1,15 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 
+use crate::Controller;
+
 pub fn MasterRecorder(cx: Scope) -> Element {
+    let con = Controller::default();
+    let raid_services = con.raid_service;
+
     cx.render(rsx! {
         div {
+            raid_services.call_foo(),
             // Since there is no need to manage the state of each and every word, use_state is not used.
             form { onsubmit: move |evt| { log::info!("{:?}", evt) },
                 div { class: "grid_container",

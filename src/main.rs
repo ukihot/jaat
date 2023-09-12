@@ -1,6 +1,6 @@
-use jaat_controller::Controller;
+use jaat_controller::presentation;
 
 fn main() {
     // launch the web app
-    dioxus_web::launch(Controller);
+    dioxus_web::launch(presentation);
 }
