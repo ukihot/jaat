@@ -9,7 +9,8 @@ edition = "2021"
 [dependencies]
 jaat-usecase = { path = "../jaat-usecase"}
 jaat-data = {path = "../jaat-data"}
+log = "0.4.20"
+wasm-logger = "0.2.0"
 dioxus = "0.4.0"
 dioxus-free-icons = { version = "0.7.0", features = ["font-awesome-brands"] }
-wasm-logger = "0.2.0"
-log = "0.4.20"
+dioxus-router = "0.4.1"

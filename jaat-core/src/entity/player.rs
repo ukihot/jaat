@@ -1,3 +1,4 @@
+use crate::values::player::{PlayerGender, PlayerId, PlayerName, PlayerStatus};
 use garde::Validate;
 
 #[derive(Debug, Validate)]
@@ -37,44 +38,6 @@ impl<'a> Player<'a> {
             uniform_number,
             weight,
         }
-    }
-}
-
-#[derive(Debug)]
-pub enum PlayerGender {
-    Male,
-    Female,
-}
-
-#[derive(Debug)]
-pub enum PlayerStatus {
-    Out,
-    In,
-}
-
-#[derive(Debug, Validate)]
-pub struct PlayerName<'a> {
-    #[garde(ascii, length(min = 3, max = 25))]
-    name: &'a str,
-}
-
-#[derive(Debug, Validate)]
-pub struct PlayerId {
-    #[garde(required)]
-    id: Option<String>,
-}
-
-impl<'a> PartialEq for Player<'a> {
-    fn eq(&self, other: &Self) -> bool {
-        // Playerの等価性をidによって比較します
-        self.id == other.id
-    }
-}
-
-impl PartialEq for PlayerId {
-    fn eq(&self, other: &Self) -> bool {
-        // PlayerIdの等価性をidによって比較します
-        self.id == other.id
     }
 }
 
