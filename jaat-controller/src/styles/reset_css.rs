@@ -56,4 +56,8 @@ pub const RESET: &str = r#"
         :where(dialog:modal) {
             all: revert;
         }
+        body {
+            background-color: #202124;
+            color: #FEFEFE;
+        }
     "#;

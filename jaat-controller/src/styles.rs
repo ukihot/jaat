@@ -3,6 +3,7 @@ mod radio;
 mod reset_css;
 mod text_form;
 mod toggle;
+mod button;
 
 pub struct Style {}
 
@@ -12,4 +13,5 @@ impl Style {
     pub const GRID_STYLES: &str = grid::GRID_STYLES;
     pub const TOGGLE_STYLES: &str = toggle::TOGGLE_STYLES;
     pub const RADIO_STYLES: &str = radio::RADIO_STYLES;
+    pub const BUTTON_STYLES: &str = button::BUTTON_STYLES;
 }

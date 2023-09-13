@@ -7,10 +7,8 @@ pub fn LiveScorer(cx: Scope) -> Element {
     cx.render(rsx! {
         // Load style sheet
         style { Style::RESET }
-        style { Style::TEXTFORM_STYLES }
-        style { Style::GRID_STYLES }
         style { Style::TOGGLE_STYLES }
-        style { Style::RADIO_STYLES }
+        style { Style::BUTTON_STYLES }
         h1 { "ID:{raid_id}" }
         div {
             label { class: "switch_label",
@@ -25,7 +23,7 @@ pub fn LiveScorer(cx: Scope) -> Element {
         }
         div { class: "scorer-footer",
             button { onclick: move |_| raid_id.set(raid_id - 1), "<< REVERT" }
-            button { onclick: move |_| raid_id.set(raid_id + 1), "COMMIT >>" }
+            button { class: "special_commit", onclick: move |_| raid_id.set(raid_id + 1), "COMMIT >>" }
         }
     })
 }
