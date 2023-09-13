@@ -7,6 +7,15 @@ pub enum PlayerGender {
     Female,
 }
 
+impl From<PlayerGender> for bool {
+    fn from(gender: PlayerGender) -> Self {
+        match gender {
+            PlayerGender::Male => true,
+            PlayerGender::Female => false,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub enum PlayerStatus {
     Out,
@@ -24,6 +33,8 @@ impl<'a> From<PlayerName<'a>> for String {
         player_name.name.to_string()
     }
 }
+
+
 
 #[derive(Debug, Validate)]
 pub struct PlayerId {

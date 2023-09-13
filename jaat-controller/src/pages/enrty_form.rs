@@ -14,69 +14,55 @@ pub fn EntryForm(cx: Scope) -> Element {
         style { Style::RADIO_STYLES }
         div {
             // Which team won rock-scissors-paper
-            fieldset { class: "first_atack", onchange: move |evt| { log::info!("{:?}", evt) },
-                legend { "FIRST ATTACK?" }
-                div { class: "radio_area",
-                    input {
-                        id: "dog_first",
-                        r#type: "radio",
-                        name: "first_atack",
-                        value: "0",
-                        checked: ""
-                    }
-                    label { r#for: "dog_first", "dog_team_name" }
-                }
-                div { class: "radio_area",
-                    input { id: "mon_first", r#type: "radio", name: "first_atack", value: "1" }
-                    label { r#for: "mon_first", "mon_team_name" }
-                }
-            }
+
             // Since there is no need to manage the state of each and every word, use_state is not used.
-            form { onsubmit: move |evt| { log::info!("{:?}", evt) },
-                (1..=9).map(|n| {
+            form { onsubmit: move |evt| { log::info!("{:?}", evt) }, class: "grid_form",
+                (1..=18).map(|n| {
+
+                    let team = if n > 9 { "mon" } else { "dog" };
                     rsx! {
-                        div { class: "grid_container",
+                        div { class: "grid_form_details",
                         div { class: "uniform",
-                        label { r#for:"uniform_{n}", "背番号" }
+                        label { r#for:"{team}_uniform_{n}", "背番号" }
                         input {
                             r#type: "text",
-                            id: "uniform_{n}",
+                            id: "{team}_uniform_{n}",
                             class: "player_info",
                             name: "uniform_number"
                         }
                     }
                     div { class: "name",
-                    label { r#for: "name_{n}", "氏名" }
+                    label { r#for: "{team}_{team}_name_{n}", "氏名" }
                     input {
                         r#type: "text",
-                        id: "name_{n}",
+                        id: "{team}_name_{n}",
                         class: "player_info",
                         name: "name"
                     }
                 }
                 div { class: "gender",
-                    label { r#for: "gender_{n}", "性別" }
+                    label { r#for: "{team}_gender_{n}", "性別" }
                     input {
                         r#type: "text",
-                        id: "gender_{n}",
+                        id: "{team}_gender_{n}",
                         class: "player_info",
                         name: "gender"
                     }
                 }
                 div { class: "height",
-                    label { r#for: "height{n}", "身長" }
+                    label { r#for: "{team}_height{n}", "身長" }
                     input {
                         r#type: "text",
-                        id: "height_{n}",
+                        id: "{team}_height_{n}",
                         class: "player_info",
                         name: "height"
                     }
                 }
                 div { class: "weight",
-                    label { r#for: "weight{n}", "体重" }
+                    label { r#for: "{team}_weight{n}", "体重" }
                     input {
                         r#type: "text",
-                        id: "weight_{n}",
+                        id: "{team}_weight_{n}",
                         class: "player_info",
                         name: "weight"
                     }

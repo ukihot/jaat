@@ -14,7 +14,7 @@ pub struct Player<'a> {
     #[garde(skip)]
     pub status: PlayerStatus,
     #[garde(length(min = 1, max = 3))]
-    pub uniform_number: Option<&'a str>,
+    pub uniform_number: &'a str,
     #[garde(range(min = 50, max = 85))]
     pub weight: Option<u8>,
 }
@@ -26,7 +26,7 @@ impl<'a> Player<'a> {
         id: PlayerId,
         name: PlayerName<'a>,
         status: PlayerStatus,
-        uniform_number: Option<&'a str>,
+        uniform_number: &'a str,
         weight: Option<u8>,
     ) -> Self {
         Self {
@@ -55,7 +55,7 @@ mod tests {
             },
             PlayerName { name: "John" },
             PlayerStatus::In,
-            Some("10"),
+            "10",
             Some(75),
         );
 
@@ -67,7 +67,7 @@ mod tests {
             },
             PlayerName { name: "Alice" },
             PlayerStatus::In,
-            Some("5"),
+            "5",
             Some(68),
         );
 
@@ -84,7 +84,7 @@ mod tests {
             },
             PlayerName { name: "John" },
             PlayerStatus::In,
-            Some("4"),
+            "4",
             Some(75),
         );
 
@@ -96,7 +96,7 @@ mod tests {
             },
             PlayerName { name: "Alice" },
             PlayerStatus::In,
-            Some("9"),
+            "9",
             Some(68),
         );
 

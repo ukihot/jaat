@@ -1,9 +1,9 @@
+mod button;
 mod grid;
 mod radio;
 mod reset_css;
 mod text_form;
 mod toggle;
-mod button;
 
 pub struct Style {}
 
