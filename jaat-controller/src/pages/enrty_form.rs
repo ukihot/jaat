@@ -2,13 +2,9 @@
 use dioxus::prelude::*;
 use dioxus_router::prelude::Link;
 
-use crate::{styles::Style, Controller};
+use crate::styles::Style;
 
 pub fn EntryForm(cx: Scope) -> Element {
-    let con = Controller::default();
-    let raid_services = con.raid_service;
-    let r = { || raid_services.call_foo() };
-
     cx.render(rsx! {
         // Load style sheet
         style { Style::RESET }
@@ -17,8 +13,24 @@ pub fn EntryForm(cx: Scope) -> Element {
         style { Style::TOGGLE_STYLES }
         style { Style::RADIO_STYLES }
         div {
-            Link { to: "/live", "Go to the Live" }
-            r(),
+            // Which team won rock-scissors-paper
+            fieldset { class: "first_atack", onchange: move |evt| { log::info!("{:?}", evt) },
+                legend { "FIRST ATTACK?" }
+                div { class: "radio_area",
+                    input {
+                        id: "dog_first",
+                        r#type: "radio",
+                        name: "first_atack",
+                        value: "0",
+                        checked: ""
+                    }
+                    label { r#for: "dog_first", "dog_team_name" }
+                }
+                div { class: "radio_area",
+                    input { id: "mon_first", r#type: "radio", name: "first_atack", value: "1" }
+                    label { r#for: "mon_first", "mon_team_name" }
+                }
+            }
             // Since there is no need to manage the state of each and every word, use_state is not used.
             form { onsubmit: move |evt| { log::info!("{:?}", evt) },
                 (1..=9).map(|n| {
@@ -74,27 +86,8 @@ pub fn EntryForm(cx: Scope) -> Element {
     }),
                 input { r#type: "submit", value: "REGISTER" }
             }
-            // Which team won rock-scissors-paper
-            fieldset { class: "first_atack", onchange: move |evt| { log::info!("{:?}", evt) },
-                legend { "FIRST ATTACK?" }
-                div { class: "radio_area",
-                    input {
-                        id: "dog_first",
-                        r#type: "radio",
-                        name: "first_atack",
-                        value: "0",
-                        checked: ""
-                    }
-                    label { r#for: "dog_first", "dog_team_name" }
-                }
-                div { class: "radio_area",
-                    input { id: "mon_first", r#type: "radio", name: "first_atack", value: "1" }
-                    label { r#for: "mon_first", "mon_team_name" }
-                }
-            }
 
-            // Record members belonging to
-            div {}
+            Link { to: "/live", "Go" }
         }
     })
 }
